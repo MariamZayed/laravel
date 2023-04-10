@@ -44,8 +44,12 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store()
-    {
+    public function store(Request $request)
+    {   
+        // 1- // $data = request()->all();// request is obj\
+        // 2- //$title = request()->title;
+        // dd($request->all());
+        // dd($request->title);
     }
 
     /**
@@ -82,8 +86,7 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {   
-        dd($id);
-        return view('posts.index');
+        return "hello update";
     }
 
     /**
@@ -92,6 +95,7 @@ class PostController extends Controller
     public function destroy(string $id)
     {
         dd($id);
-        return view('posts.index');
+        return "hello destroy";
+
     }
 }

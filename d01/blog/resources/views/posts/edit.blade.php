@@ -2,8 +2,9 @@
 @section('title') Create Post @endsection
 
 @section('content')
-<form action="{{route('posts.update',$post['id'])}}" method="PUT" class="w-50 mt-3 mx-auto">
+<form action="{{route('posts.update',$post['id'])}}" method="POST" class="w-50 mt-3 mx-auto">
     @csrf
+    @method('PATCH')
     <fieldset>
         <legend><h2>Edit post</h2></legend>
         <div class="mb-3">

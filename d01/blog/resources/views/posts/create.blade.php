@@ -2,7 +2,7 @@
 @section('title') Create Post @endsection
 
 @section('content')
-<form action="" method="POST" class="w-50 mt-3 mx-auto">
+<form action="{{route('posts.store')}}" method="POST" class="w-50 mt-3 mx-auto">
     @csrf
     <fieldset>
         <legend><h2>Create new post</h2></legend>
