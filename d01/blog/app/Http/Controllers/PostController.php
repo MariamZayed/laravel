@@ -67,15 +67,23 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $post= [
+            'id'=>3,
+            'title'=>"javascript",
+            'description'=>' hello js',
+            'posted_by'=> 'Mariam',
+            'created_at'=> "2023-12-21"
+            ];
+        return view('posts.edit',['post'=>$post]);
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        //
+    {   
+        dd($id);
+        return view('posts.index');
     }
 
     /**
@@ -83,6 +91,7 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        dd($id);
+        return view('posts.index');
     }
 }
