@@ -10,26 +10,9 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function  index()
+    public function index()
     {
-        // $allPosts = Post::with('user')->paginate(15);
-        $allPosts = [
-            [
-                'id'=>1,
-                'title'=>"javascript",
-                'description'=>' hello js',
-                'posted_by'=> 'Mariam',
-                'created_at'=> "2023-12-21"
-            ],
-            [
-                'id'=>2,
-                'title'=>"php",
-                'description'=>' hello php',
-                'posted_by'=> 'fatema',
-                'created_at'=> "2023-12-21"
-            ]
-        ];
-
+        $allPosts = Post::with('user')->paginate(15);
         return view('posts.index',['posts'=>$allPosts]);
     }
 
@@ -38,62 +21,66 @@ class PostController extends Controller
      */
     public function create()
     {
-        // $users = User::all();
-        return view('posts.create'
-        // , [ 'users' => $users]
-    );
+        $users = User::select('id', 'name')->get();
+        return view('posts.create',compact('users'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store()
-    {
-        if (!empty($_POST['title']) && !empty($_POST['description']) && !empty($_POST['user_id'])) {
-            Post::create([
-                'title' => $_POST['title'],
-                'description' => $_POST['description'],
-                'user_id' => $_POST['user_id']
-            ]);
-        }
+    public function store(Request $request)
+    {   
+        Post::create($request->all());
         return redirect()->route('posts.index');
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {   $posts = [
-        'id'=>3,
-        'title'=>"javascript",
-        'description'=>' hello js',
-        'posted_by'=> 'Mariam',
-        'created_at'=> "2023-12-21"
-        ];
-        return view('posts.show',['posts'=>$posts]);
+    public function show(int $id)
+    {     
+        // eloquent orm     
+        // $post = POST::find($id);//limit =1
+        // $post = POST::where('id',$id)->first();//limit 1= bring me first result
+        // $post = POST::where("id",$id)->all();//bring me all where title = test
+        $post = POST::where("id",$id)->with('user')->first();
+        return view('posts.show',['post' => $post]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(int $id)
     {
-        //
+        $post = Post::where("id",$id)->first();
+        $users = User::select('id', 'name')->get();
+        return view('posts.edit',compact('post','users'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(Request $request, int $id)
+    {   
+        $post = Post::where('id', $id)->first();
+        $post->update($request->all());
+        return to_route('posts.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
-        //
+        Post::where('id', $id)->first()->delete();
+        return to_route('posts.index');
+    }
+
+    public function storeComment(Request $request, int $id)
+    {   dd($id);
+        $post = Post::where('id', $id)->first();
+        $post->comments()->create($request->all());
+        return to_route('posts.index');
     }
 }

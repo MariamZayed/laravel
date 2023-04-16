@@ -16,6 +16,7 @@ class Post extends Model
     ];
 
     public function user (){
-        return $this->belongsTo(user::class,'posted_by');
+        // eloquent relationship 
+        return $this->belongsTo(User::class,'posted_by');
     }
 }
