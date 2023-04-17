@@ -4,7 +4,6 @@ use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 // Route::resource('post', PostController::class);
-Route::post('/posts/{post}/comment', [PostController::class, 'storeComment'])->name('posts.comment.store');    
 
 
 Route::get('/', [PostController::class, 'index'])->name('posts.index');
@@ -15,6 +14,7 @@ Route::patch('/posts/{post}', [PostController::class, 'update'])->name('posts.up
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy'); 
 
-// Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy'); 
-// Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy'); 
+Route::post('/posts/{post}/comment', [PostController::class, 'storeComment'])->name('post.comment.store');    
+Route::delete('/posts/{post}/comment', [PostController::class, 'deleteComment'])->name('post.comment.delete'); 
+Route::put('/posts/{post}/comment', [PostController::class, 'updateComment'])->name('post.comment.update'); 
 

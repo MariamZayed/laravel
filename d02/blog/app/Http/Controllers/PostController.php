@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Comment;
 
 class PostController extends Controller
 {
@@ -78,9 +79,29 @@ class PostController extends Controller
     }
 
     public function storeComment(Request $request, int $id)
-    {   dd($id);
+    {   
         $post = Post::where('id', $id)->first();
         $post->comments()->create($request->all());
-        return to_route('posts.index');
+        return redirect()->back();
+    }
+
+    public function deleteComment(Request $request, int $commentID)
+    {   
+        // $post = Post::where('id', $id)->first();
+        // $post->comments()->delete();
+        Comment::where('id', $commentID)->delete();
+        return redirect()->back();
+    }
+
+    public function updateComment(Request $request, int $commentID)
+    {   
+        // $post = Post::where('id', $commentID)->first();
+        // $post->comments()->update([
+        //     'body' => $request->body,
+        // ]);
+        Comment::where('id', $commentID)->update([
+            'body' => $request->body,
+        ]);
+        return redirect()->back();
     }
 }

@@ -27,9 +27,9 @@
     <br>
     <h2>Comments</h2>
 
-    {{-- <div class="card mt-4 text-center">
+    <div class="card mt-4 text-center">
         <div class="card-header">
-            <h1>Comments</h1>
+            <h3>Comments</h3>
         </div>
         <div class="card-body">
             @if ($post->comments->count() > 0)
@@ -56,8 +56,7 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="modal-body">
-                                        <input type="text" class="form-control" name="body"
-                                            value="{{ $comment->body }}">
+                                        <input type="text" class="form-control" name="body" value="{{ $comment->body }}">
                                     </div>
                                     <div class="modal-footer ">
                                         <button type="button" class="btn btn-secondary"
@@ -73,7 +72,7 @@
                 <p class="card-text">No comments</p>
             @endif
         </div>
-    </div> --}}
+    </div>
     <div class="card mt-4 text-center">
         <div class="card-header">
             <h3>Add Comment</h3>
